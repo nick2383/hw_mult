@@ -23,7 +23,7 @@ SC_MODULE(add) {
     void add_process();
     
     SC_CTOR(add) {
-        SC_METHOD(sub_process);
+        SC_METHOD(add_process);
         sensitive << A << B;
     }
 };
@@ -53,8 +53,8 @@ SC_MODULE(reg) {
     // ports
     sc_in<sc_logic> reset, load;
     sc_in_clk clock;
-    sc_in< sc_uint<word_length> > IN; 
-    sc_out< sc_uint<word_length> > OUT;	
+    sc_in< sc_uint<word_length> > A_IN; 
+    sc_out< sc_uint<word_length> > B_OUT;	
 
     void reg_process();
     
