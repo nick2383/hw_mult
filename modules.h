@@ -15,16 +15,16 @@
 //*************************
 SC_MODULE(add) {
     // ports
-    sc_in< sc_uint<word_length> > A; 
-    sc_in< sc_uint<word_length> > B;	
-    sc_out< sc_uint<word_length> > OUT;
-    sc_out< sc_uint<word_length> > COUT;
+    sc_in< sc_uint<word_length> > A_IN; 
+    sc_in< sc_uint<word_length> > B_IN;	
+    sc_out< sc_uint<word_length> > Z_OUT;
+    sc_out<sc_logic> carry_OUT;
 
     void add_process();
     
     SC_CTOR(add) {
         SC_METHOD(add_process);
-        sensitive << A << B;
+        sensitive << A_IN << B_IN;
     }
 };
 
@@ -34,15 +34,15 @@ SC_MODULE(add) {
 SC_MODULE(mux2) {
     // ports
     sc_in<sc_logic> sel;
-    sc_in< sc_uint<word_length> > A; 
-    sc_in< sc_uint<word_length> > B;	
-    sc_out< sc_uint<word_length> > OUT;
+    sc_in< sc_uint<word_length> > A_IN; 
+    sc_in< sc_uint<word_length> > B_IN;	
+    sc_out< sc_uint<word_length> > Z_OUT;
 
     void mux2_process();
     
     SC_CTOR(mux2) {
         SC_METHOD(mux2_process);
-        sensitive << sel << A << B;
+        sensitive << sel << A_IN << B_IN;
     }
 };
 
