@@ -11,10 +11,11 @@
 int sc_main(int argc, char *argv[]) {
     
 	// signals
-	sc_signal<sc_uint<word_length> > A_IN;
-	sc_signal<sc_uint<word_length> > B_IN;
-	sc_signal<sc_uint<word_length> > Z_OUT;
-	sc_signal<sc_logic> carry_OUT;
+	sc_signal<sc_uint<input_length> > A_IN;
+	sc_signal<sc_uint<input_length> > B_IN;
+	sc_signal<sc_uint<output_length> > Z_OUT;
+	sc_signal<sc_logic> carry_IN;
+	//sc_signal<sc_logic> carry_OUT;
 	
 	// clock
 	//sc_signal<sc_logic> reset, load;
@@ -22,23 +23,39 @@ int sc_main(int argc, char *argv[]) {
 
 
     // instances
-    add ADD("ADD"); 
+    rshift RSHIFT("RSHIFT"); 
 	stim STIM("STIM");
 	mon MON("MON");
 
 	// adder interconnections
-	ADD.A_IN(A_IN);
-	ADD.B_IN(B_IN);	
-	ADD.Z_OUT(Z_OUT);
-	ADD.carry_OUT(carry_OUT);
+	RSHIFT.A_IN(A_IN);
+	RSHIFT.B_IN(B_IN);	
+	RSHIFT.Z_OUT(Z_OUT);
+	RSHIFT.carry_IN(carry_IN);
 
     STIM.A_IN(A_IN);
     STIM.B_IN(B_IN);
+    STIM.carry_IN(carry_IN);
     STIM.clock(clock);
     
     MON.Z_OUT(Z_OUT);
-    MON.carry_OUT(carry_OUT);
     MON.clock(clock);
+
+
+
+	// adder interconnections
+	// ADD.A_IN(A_IN);
+	// ADD.B_IN(B_IN);	
+	// ADD.Z_OUT(Z_OUT);
+	// ADD.carry_OUT(carry_OUT);
+
+ //    STIM.A_IN(A_IN);
+ //    STIM.B_IN(B_IN);
+ //    STIM.clock(clock);
+    
+ //    MON.Z_OUT(Z_OUT);
+ //    MON.carry_OUT(carry_OUT);
+ //    MON.clock(clock);
 
 	// // REG interconnections
 	// REG.A_IN(A_IN);

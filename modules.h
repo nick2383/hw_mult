@@ -8,16 +8,17 @@
 #include "systemc.h"
 
 
-#define word_length 16
+#define input_length 16
+#define output_length 32
 
 //*************************
 // add - adds number A and b
 //*************************
 SC_MODULE(add) {
     // ports
-    sc_in< sc_uint<word_length> > A_IN; 
-    sc_in< sc_uint<word_length> > B_IN;	
-    sc_out< sc_uint<word_length> > Z_OUT;
+    sc_in< sc_uint<input_length> > A_IN; 
+    sc_in< sc_uint<input_length> > B_IN;	
+    sc_out< sc_uint<input_length> > Z_OUT;
     sc_out<sc_logic> carry_OUT;
 
     void add_process();
@@ -34,9 +35,9 @@ SC_MODULE(add) {
 SC_MODULE(mux2) {
     // ports
     sc_in<sc_logic> sel;
-    sc_in< sc_uint<word_length> > A_IN; 
-    sc_in< sc_uint<word_length> > B_IN;	
-    sc_out< sc_uint<word_length> > Z_OUT;
+    sc_in< sc_uint<input_length> > A_IN; 
+    sc_in< sc_uint<input_length> > B_IN;	
+    sc_out< sc_uint<input_length> > Z_OUT;
 
     void mux2_process();
     
@@ -53,13 +54,31 @@ SC_MODULE(reg) {
     // ports
     sc_in<sc_logic> reset, load;
     sc_in_clk clock;
-    sc_in< sc_uint<word_length> > A_IN; 
-    sc_out< sc_uint<word_length> > B_OUT;	
+    sc_in< sc_uint<input_length> > A_IN; 
+    sc_out< sc_uint<input_length> > B_OUT;	
 
     void reg_process();
     
     SC_CTOR(reg) {
         SC_CTHREAD(reg_process, clock.pos());
+    }
+};
+
+//*************************
+// rshift - right bit shifter
+//*************************
+SC_MODULE(rshift) {
+    // ports
+    sc_in< sc_uint<input_length> > A_IN;
+    sc_in< sc_uint<input_length> > B_IN;
+    sc_in<sc_logic> carry_IN;
+    sc_out< sc_uint<output_length> > Z_OUT; 
+
+    void rshift_process();
+    
+    SC_CTOR(rshift) {
+        SC_METHOD(rshift_process);
+        sensitive << A_IN << B_IN;
     }
 };
 
