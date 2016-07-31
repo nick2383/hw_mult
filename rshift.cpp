@@ -9,8 +9,8 @@
 void rshift::rshift_process() {
     
     // temporary variables
-    sc_uint<output_length> temp_output = 0;
-    temp_output = (A_IN.read() << input_length) + B_IN.read();
+    sc_uint<product_length> temp_output = 0;
+    temp_output = (A_IN.read() << multiplier_length) + B_IN.read();
     temp_output = temp_output >> 1;
 
     if(carry_IN == SC_LOGIC_1){

@@ -11,10 +11,12 @@
 int sc_main(int argc, char *argv[]) {
     
 	// signals
-	sc_signal<sc_uint<input_length> > A_IN;
-	sc_signal<sc_uint<input_length> > B_IN;
-	sc_signal<sc_uint<output_length> > Z_OUT;
-	sc_signal<sc_logic> carry_IN;
+	sc_signal<sc_uint<product_length> > A_IN;
+	//sc_signal<sc_uint<multiplier_length> > B_IN;
+	sc_signal<sc_uint<multiplier_length> > HI_OUT;
+	sc_signal<sc_uint<multiplier_length> > LO_OUT;
+	//sc_signal<sc_uint<product_length> > Z_OUT;
+	//sc_signal<sc_logic> carry_IN;
 	//sc_signal<sc_logic> carry_OUT;
 	
 	// clock
@@ -23,22 +25,20 @@ int sc_main(int argc, char *argv[]) {
 
 
     // instances
-    rshift RSHIFT("RSHIFT"); 
+    splitter SPLITTER("RSHIFT"); 
 	stim STIM("STIM");
 	mon MON("MON");
 
-	// adder interconnections
-	RSHIFT.A_IN(A_IN);
-	RSHIFT.B_IN(B_IN);	
-	RSHIFT.Z_OUT(Z_OUT);
-	RSHIFT.carry_IN(carry_IN);
+	// interconnections
+	SPLITTER.A_IN(A_IN);	
+	SPLITTER.HI_OUT(HI_OUT);
+	SPLITTER.LO_OUT(LO_OUT);
 
     STIM.A_IN(A_IN);
-    STIM.B_IN(B_IN);
-    STIM.carry_IN(carry_IN);
     STIM.clock(clock);
     
-    MON.Z_OUT(Z_OUT);
+    MON.HI_OUT(HI_OUT);
+    MON.LO_OUT(LO_OUT);
     MON.clock(clock);
 
 
