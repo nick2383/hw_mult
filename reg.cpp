@@ -9,12 +9,14 @@
 void reg::reg_process() {
     
     while (1) {
-        if (reset.read() == SC_LOGIC_1) {
-        	B_OUT.write(0);
+        if (reset.read() == SC_LOGIC_0) {
+        	Z_OUT.write(0);
         }
         else if (load.read() == SC_LOGIC_1) {
-        	B_OUT.write(A_IN.read());
+        	Z_OUT.write(A_IN.read());
+        	LSB.write(A_IN.read() & 0x0001);
         }
+
 	wait();
     }
 }

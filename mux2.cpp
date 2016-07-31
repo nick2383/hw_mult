@@ -9,7 +9,7 @@
 void mux2::mux2_process() {
     
     if (sel.read() == SC_LOGIC_1) 
-        Z_OUT.write(B_IN.read());
-    else 
         Z_OUT.write(A_IN.read());
+    else 
+        Z_OUT.write(B_IN.read());
 }

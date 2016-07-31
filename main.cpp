@@ -11,10 +11,14 @@
 int sc_main(int argc, char *argv[]) {
     
 	// signals
-	sc_signal<sc_uint<product_length> > A_IN;
-	//sc_signal<sc_uint<multiplier_length> > B_IN;
-	sc_signal<sc_uint<multiplier_length> > HI_OUT;
-	sc_signal<sc_uint<multiplier_length> > LO_OUT;
+
+	sc_signal<sc_uint<product_length> > multiplier;
+	sc_signal<sc_uint<input_length> > multiplicand;
+	sc_signal<sc_uint<input_length> > product;
+	sc_signal<sc_logic> reset;
+
+	//sc_signal<sc_uint<input_length> > HI_OUT;
+	//sc_signal<sc_uint<input_length> > LO_OUT;
 	//sc_signal<sc_uint<product_length> > Z_OUT;
 	//sc_signal<sc_logic> carry_IN;
 	//sc_signal<sc_logic> carry_OUT;
@@ -23,13 +27,41 @@ int sc_main(int argc, char *argv[]) {
 	//sc_signal<sc_logic> reset, load;
 	sc_clock clock("clock", 10, SC_NS, 0.5, 0, SC_NS, true);
 
+	// instancess
+	datapath DP("DP"); 
+	crl CTRL("CTRL");
+	stim STIM("STIM");
+	mon MON("MON");
+
+	//interconnections
+	DP.rest(reset);
+	DP.clk(clock);
+	DP.multiplier(multiplier);
+	DP.multiplicand(multiplicand);
+	DP.product(product);
+
+	CTRL.reset(reset);
+	CTRL.clk(clock);
+
+	STIM.reset(reset);
+	STIM.multiplier(multiplier);
+	STIM.multiplicand(multiplicand);
+
+	MON.clk(clock);
+	MON.product(product);
+
+
 
     // instances
+    /*
     splitter SPLITTER("RSHIFT"); 
 	stim STIM("STIM");
 	mon MON("MON");
 
 	// interconnections
+	
+
+
 	SPLITTER.A_IN(A_IN);	
 	SPLITTER.HI_OUT(HI_OUT);
 	SPLITTER.LO_OUT(LO_OUT);
@@ -40,6 +72,7 @@ int sc_main(int argc, char *argv[]) {
     MON.HI_OUT(HI_OUT);
     MON.LO_OUT(LO_OUT);
     MON.clock(clock);
+    */
 
 
 

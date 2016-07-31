@@ -9,16 +9,16 @@
 void add::add_process() {
     
     // temporary variables
-    sc_uint<multiplier_length> a_in_temp = A_IN.read();
-    sc_uint<multiplier_length> b_in_temp = B_IN.read();
+    sc_uint<input_length> a_in_temp = A_IN.read();
+    sc_uint<input_length> b_in_temp = B_IN.read();
     sc_uint<product_length> sum_temp = a_in_temp + b_in_temp;
 
     // check for carry out bit and set or reset carry_OUT flag accordingly
     if(sum_temp > 65535){
-    	carry_OUT.write(SC_LOGIC_1);
+    	carry_OUT.write(1);
     }
     else{
-    	carry_OUT.write(SC_LOGIC_0);
+    	carry_OUT.write(0);
     }
 
     // write result to output port

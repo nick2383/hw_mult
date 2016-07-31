@@ -1,24 +1,34 @@
-/******************************************************************
-* gcd_tb.h - Stimulus and Monitor for GCD
-*
-* Daler Rakhmatov
-*****************************************************************/
+//******************************************************************
+// tb.h - testbench for modules
+// Author: Nick Birch
+// Date: July 31, 2016
+//******************************************************************
 
 #include "systemc.h"
 
 SC_MODULE(stim) {
-    sc_out< sc_uint<product_length> > A_IN;
-    //sc_out<sc_logic> reset, load;
+    sc_out< sc_uint<input_length> > multiplier, multiplicand;
+    sc_out<sc_logic> reset;
     sc_in_clk clock;
     
     void stim_process(){
 
+    	reset.write(SC_LOGIC_1);
+    	wait();
+    	reset.write(SC_LOGIC_0);
+    	wait();
+    	multiplier.write(15);
+    	multiplicand.write(10);
+		wait();
+		cout << "Time = " << sc_time_stamp() << 
+			"  A_IN = " << A_IN.read() << endl;
     	
-
+    	/*
     	A_IN.write(2147549183);
 		wait();
 		cout << "Time = " << sc_time_stamp() << 
 			"  A_IN = " << A_IN.read() << endl;
+		*/
 
     	//****
 		// SPLITTER stim
@@ -85,20 +95,27 @@ SC_MODULE(stim) {
 
 
 SC_MODULE(mon) {
-    sc_in< sc_uint<multiplier_length> > LO_OUT;
-    sc_in< sc_uint<multiplier_length> > HI_OUT;
+    sc_in< sc_uint<multiplier_length> > product;
+    //sc_in< sc_uint<multiplier_length> > HI_OUT;
     //sc_in<sc_logic> carry_OUT;
     sc_in_clk clock;
     
     void mon_process(){
         
-
         while (1) {
+	  		wait();
+	  		cout << " * Time = " << sc_time_stamp() << 
+		  		"  product = " << prouct.read() << endl;
+    	}
+
+
+        /*while (1) {
 	  		wait();
 	  		cout << " * Time = " << sc_time_stamp() << 
 		  		"  HI_OUT = " << HI_OUT.read() << 
 		  		"  LO_OUT = " << LO_OUT.read() << endl;
     	}
+    	*/
     
     	// SPLITTER mon
     	//*****

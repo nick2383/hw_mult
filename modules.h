@@ -8,7 +8,7 @@
 #include "systemc.h"
 
 
-#define multiplier_length 16
+#define input_length 16
 #define product_length 32
 
 //*************************
@@ -16,10 +16,10 @@
 //*************************
 SC_MODULE(add) {
     // ports
-    sc_in< sc_uint<multiplier_length> > A_IN; 
-    sc_in< sc_uint<multiplier_length> > B_IN;	
-    sc_out< sc_uint<multiplier_length> > Z_OUT;
-    sc_out<sc_logic> carry_OUT;
+    sc_in< sc_uint<input_length> > A_IN; 
+    sc_in< sc_uint<input_length> > B_IN;	
+    sc_out< sc_uint<input_length> > Z_OUT;
+    sc_out< sc_uint<input_length> > carry_OUT;
 
     void add_process();
     
@@ -35,9 +35,9 @@ SC_MODULE(add) {
 SC_MODULE(mux2) {
     // ports
     sc_in<sc_logic> sel;
-    sc_in< sc_uint<multiplier_length> > A_IN; 
-    sc_in< sc_uint<multiplier_length> > B_IN;	
-    sc_out< sc_uint<multiplier_length> > Z_OUT;
+    sc_in< sc_uint<input_length> > A_IN; 
+    sc_in< sc_uint<input_length> > B_IN;	
+    sc_out< sc_uint<input_length> > Z_OUT;
 
     void mux2_process();
     
@@ -54,8 +54,9 @@ SC_MODULE(reg) {
     // ports
     sc_in<sc_logic> reset, load;
     sc_in_clk clock;
-    sc_in< sc_uint<multiplier_length> > A_IN; 
-    sc_out< sc_uint<multiplier_length> > B_OUT;	
+    sc_in< sc_uint<input_length> > A_IN; 
+    sc_out< sc_uint<input_length> > Z_OUT;	
+    sc_out<sc_logic> LSB;
 
     void reg_process();
     
@@ -69,16 +70,17 @@ SC_MODULE(reg) {
 //*************************
 SC_MODULE(rshift) {
     // ports
-    sc_in< sc_uint<multiplier_length> > A_IN;
-    sc_in< sc_uint<multiplier_length> > B_IN;
+    sc_in< sc_uint<input_length> > A_IN;
+    sc_in< sc_uint<input_length> > B_IN;
     sc_in<sc_logic> carry_IN;
+    sc_in<sc_logic> load;
     sc_out< sc_uint<product_length> > Z_OUT; 
 
     void rshift_process();
     
     SC_CTOR(rshift) {
         SC_METHOD(rshift_process);
-        sensitive << A_IN << B_IN;
+        sensitive << load;
     }
 };
 
@@ -88,8 +90,8 @@ SC_MODULE(rshift) {
 SC_MODULE(splitter) {
     // ports
     sc_in< sc_uint<product_length> > A_IN;
-    sc_out< sc_uint<multiplier_length> > LO_OUT;
-    sc_out< sc_uint<multiplier_length> > HI_OUT;
+    sc_out< sc_uint<input_length> > LO_OUT;
+    sc_out< sc_uint<input_length> > HI_OUT;
 
     void splitter_process();
     

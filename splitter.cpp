@@ -9,8 +9,8 @@
 void splitter::splitter_process() {
     
     // temporary variables
-    sc_uint<multiplier_length> temp_lo_out = 0;
-    sc_uint<multiplier_length> temp_hi_out = 0;
+    sc_uint<input_length> temp_lo_out = 0;
+    sc_uint<input_length> temp_hi_out = 0;
 
     // mask upper two bytes
     temp_lo_out = A_IN.read() & 0x0000FFFF;
