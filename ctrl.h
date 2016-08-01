@@ -8,11 +8,11 @@
 #define CONTROL_H
 #include "systemc.h"
 
-#define input_length 4
-#define product_length 8
+// #define input_length 4
+// #define product_length 8
 
-// #define input_length 16
-// #define product_length 32
+#define input_length 16
+#define product_length 32
 
 enum ctrl_state {S0_BEGIN, S1_COUNT, S2_CHECK, S3_DO_NOTHING, S3_ADD, S4_SHIFT, S5_WAIT, S6_FINISH};
     

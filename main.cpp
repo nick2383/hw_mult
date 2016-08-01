@@ -199,7 +199,7 @@ int sc_main(int argc, char *argv[]) {
 	
       
     
-	sc_start(300, SC_NS);
+	sc_start(3000, SC_NS);
 
 	sc_close_vcd_trace_file(tf);
 		
