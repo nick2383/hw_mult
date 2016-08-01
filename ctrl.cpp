@@ -28,9 +28,12 @@ void ctrl::state_transition() {
         break;
 	
     case S1_COUNT:
-        if(counter == 32){
-          next_state.write(S4_FINISH);
+        if(counter == 5){
+          next_state.write(S5_FINISH);
         }
+        // if(counter == 32){
+        //   next_state.write(S4_FINISH);
+        // }
         else {
           next_state.write(S2_CHECK);
         }
@@ -46,14 +49,22 @@ void ctrl::state_transition() {
         break;
 
     case S3_ADD:
-        next_state.write(S1_COUNT);
+        next_state.write(S4_SHIFT);
         break;
 
     case S3_DO_NOTHING:
+        next_state.write(S4_SHIFT);
+        break;
+
+    case S4_SHIFT:
         next_state.write(S1_COUNT);
         break;
 
-    case S4_FINISH:
+    // case S5_WAIT:
+    //     next_state.write(S1_COUNT);
+    //     break;
+
+    case S5_FINISH:
         break;
 	
     default:
@@ -64,13 +75,13 @@ void ctrl::state_transition() {
 
 void ctrl::state_output() {
   //default: all outputs at zero
-  // HI_mux_sel.write(SC_LOGIC_1); 
-  // LO_mux_sel.write(SC_LOGIC_1);
+  //HI_mux_sel.write(SC_LOGIC_1); 
+  //LO_mux_sel.write(SC_LOGIC_1);
   // HI_mux2_sel.write(SC_LOGIC_0); 
   // carry_mux_sel.write(SC_LOGIC_0);
   // HI_reg_load.write(SC_LOGIC_0); 
   // LO_reg_load.write(SC_LOGIC_0);
-  rshift_load.write(SC_LOGIC_1);
+  //rshift_load.write(SC_LOGIC_1);
   
   switch (state.read()) {
 
@@ -80,36 +91,63 @@ void ctrl::state_output() {
 	      HI_reg_load.write(SC_LOGIC_1);
 	      LO_mux_sel.write(SC_LOGIC_0);
         LO_reg_load.write(SC_LOGIC_1);
+        carry_mux_sel.write(SC_LOGIC_0);
+        HI_mux2_sel.write(SC_LOGIC_0);
+        rshift_load.write(SC_LOGIC_0);    
         break;
 
     case S1_COUNT:
         cout << "\n S1_COUNT counter = " << counter;
         counter = counter + 1;
+        HI_reg_load.write(SC_LOGIC_1);
+        LO_reg_load.write(SC_LOGIC_1);
+        // rshift_load.write(SC_LOGIC_1); 
         break;
 
     case S2_CHECK:
+        cout << " \n S2_CHECK";
+        // set muxes to always ON after init values have been loaded
         LO_mux_sel.write(SC_LOGIC_1);
         HI_mux_sel.write(SC_LOGIC_1);
+        // close registers
+        LO_reg_load.write(SC_LOGIC_0);
+        HI_reg_load.write(SC_LOGIC_0);
+        // rshift_load.write(SC_LOGIC_1);
         break;
 
     case S3_DO_NOTHING:
         cout << " \n S3_DO_NOTHING";
+        // set muxes for "Do Nothing" case
 	      carry_mux_sel.write(SC_LOGIC_0);
 	      HI_mux2_sel.write(SC_LOGIC_0);
         //rshift_load.write(SC_LOGIC_1);
-        //rshift_load.write(SC_LOGIC_0);
         break;
 
     case S3_ADD:
         cout << " \n S3_ADD";
-        //HI_reg_load.write(SC_LOGIC_1);
-        //LO_reg_load.write(SC_LOGIC_1);
-	      carry_mux_sel.write(SC_LOGIC_1);
-        HI_mux2_sel.write(SC_LOGIC_1);    
+        // set muxes for "ADD case" case
+        carry_mux_sel.write(SC_LOGIC_1);
+        HI_mux2_sel.write(SC_LOGIC_1); 
+        // HI_reg_load.write(SC_LOGIC_0);
+        // LO_reg_load.write(SC_LOGIC_0);
+	      //rshift_load.write(SC_LOGIC_1);
         break;
 
-    case S4_FINISH:
-        cout << " \n S4_FINISH";
+    case S4_SHIFT:
+        cout << " \n S4_SHIFT";
+        // perform shift
+        rshift_load.write(SC_LOGIC_1);
+        break;
+
+    // case S5_WAIT:
+    //     // load registers with new values
+    //     LO_reg_load.write(SC_LOGIC_1);
+    //     HI_reg_load.write(SC_LOGIC_1);
+    //     cout << " \n S5_WAIT";
+    //     break;
+
+    case S5_FINISH:
+        cout << " \n S5_FINISH";
         cout << "done..";
         break;	
 	

@@ -8,8 +8,11 @@
 #include "systemc.h"
 
 
-#define input_length 16
-#define product_length 32
+#define input_length 4
+#define product_length 8
+
+// #define input_length 16
+// #define product_length 32
 
 //*************************
 // add - adds number A and b

@@ -142,20 +142,20 @@ int sc_main(int argc, char *argv[]) {
 	sc_trace(tf, clock, "clock");
 	//sc_trace(tf, Z_OUT, "Z_OUT"); 
 
-	// sc_trace(tf, DP.LO_mux.A_IN, "LO_mux.A_IN");
-	// sc_trace(tf, DP.LO_mux.B_IN, "LO_mux.B_IN");
-	// sc_trace(tf, DP.LO_mux.Z_OUT, "LO_mux.Z_OUT");
-	// sc_trace(tf, DP.LO_mux.sel, "LO_mux.sel");
+	sc_trace(tf, DP.LO_mux.A_IN, "LO_mux.A_IN");
+	sc_trace(tf, DP.LO_mux.B_IN, "LO_mux.B_IN");
+	sc_trace(tf, DP.LO_mux.Z_OUT, "LO_mux.Z_OUT");
+	sc_trace(tf, DP.LO_mux.sel, "LO_mux.sel");
 
 	sc_trace(tf, DP.LO_reg.A_IN, "LO_reg.A_IN");
 	sc_trace(tf, DP.LO_reg.load, "LO_reg.load");
 	sc_trace(tf, DP.LO_reg.Z_OUT, "LO_reg.Z_OUT");
 	sc_trace(tf, DP.LO_reg.LSB, "LO_reg.LSB");
 
-	// sc_trace(tf, DP.HI_mux.A_IN, "HI_mux.A_IN");
-	// sc_trace(tf, DP.HI_mux.B_IN, "HI_mux.B_IN");
-	// sc_trace(tf, DP.HI_mux.Z_OUT, "HI_mux.Z_OUT");
-	// sc_trace(tf, DP.HI_mux.sel, "HI_mux.sel");
+	sc_trace(tf, DP.HI_mux.A_IN, "HI_mux.A_IN");
+	sc_trace(tf, DP.HI_mux.B_IN, "HI_mux.B_IN");
+	sc_trace(tf, DP.HI_mux.Z_OUT, "HI_mux.Z_OUT");
+	sc_trace(tf, DP.HI_mux.sel, "HI_mux.sel");
 
 	sc_trace(tf, DP.rshifter.A_IN, "rshifter.A_IN");
 	sc_trace(tf, DP.rshifter.B_IN, "rshifter.B_IN");
@@ -163,6 +163,12 @@ int sc_main(int argc, char *argv[]) {
 	sc_trace(tf, DP.rshifter.Z_OUT, "rshifter.Z_OUT");
 	sc_trace(tf, DP.rshifter.product_OUT, "rshifter.product_OUT");
 	sc_trace(tf, DP.rshifter.load, "rshifter.load");
+	//sc_trace(tf, DP.product, "DP.product");
+
+	sc_trace(tf, DP.adder.A_IN, "adder.A_IN");
+	sc_trace(tf, DP.adder.B_IN, "adder.B_IN");
+	sc_trace(tf, DP.adder.Z_OUT, "adder.Z_OUT");
+	sc_trace(tf, DP.adder.carry_OUT, "adder.carry_OUT");
 
 
 
@@ -190,7 +196,7 @@ int sc_main(int argc, char *argv[]) {
 	
       
     
-	sc_start(2000, SC_NS);
+	sc_start(200, SC_NS);
 
 	sc_close_vcd_trace_file(tf);
 		

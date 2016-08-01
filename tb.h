@@ -6,8 +6,10 @@
 
 #include "systemc.h"
 
-#define input_length 16
-#define product_length 32
+#define input_length 4
+#define product_length 8
+// #define input_length 16
+// #define product_length 32
 
 SC_MODULE(stim) {
     sc_out< sc_uint<input_length> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero;
@@ -18,8 +20,8 @@ SC_MODULE(stim) {
 
     	reset.write(SC_LOGIC_1);
     	reset.write(SC_LOGIC_0);
-    	multiplier.write(15);
-    	multiplicand.write(10);
+    	multiplier.write(13);
+    	multiplicand.write(12);
     	wait();
 		// cout << "\n Time = " << sc_time_stamp() << 
 		// 	"  multiplier = " << multiplier.read() << 

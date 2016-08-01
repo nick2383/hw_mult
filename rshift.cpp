@@ -14,7 +14,8 @@ void rshift::rshift_process() {
         temp_output = temp_output >> 1;
 
         if(carry_IN.read() == 1){
-            temp_output = (1<<31) + temp_output;
+            temp_output = (1<<7) + temp_output;
+            //temp_output = (1<<31) + temp_output;
         }
         
         // write result to output port

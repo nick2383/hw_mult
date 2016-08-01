@@ -14,7 +14,8 @@ void add::add_process() {
     sc_uint<product_length> sum_temp = a_in_temp + b_in_temp;
 
     // check for carry out bit and set or reset carry_OUT flag accordingly
-    if(sum_temp > 65535){
+    if(sum_temp > 15){
+    	//if(sum_temp > 65535)
     	carry_OUT.write(1);
     }
     else{
