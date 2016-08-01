@@ -5,14 +5,14 @@
 //******************************************************************
 
 #include "systemc.h"
-
+#include "digit.h"
 // #define input_length 4
 // #define product_length 8
-#define input_length 16
-#define product_length 32
+// #define input_length 16
+// #define product_length 32
 
 SC_MODULE(stim) {
-    sc_out< sc_uint<input_length> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero;
+    sc_out< sc_uint<NN_HALF_DIGIT_BITS> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero;
     sc_out<sc_logic> reset;
     sc_in_clk clock;
     
@@ -99,7 +99,7 @@ SC_MODULE(stim) {
 
 
 SC_MODULE(mon) {
-    sc_in< sc_uint<product_length> > product;
+    sc_in< sc_uint<NN_DIGIT_BITS> > product;
     //sc_in< sc_uint<multiplier_length> > HI_OUT;
     sc_in<sc_logic> DONE;
     sc_in_clk clock;

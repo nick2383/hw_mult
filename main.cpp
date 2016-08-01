@@ -14,8 +14,8 @@ int sc_main(int argc, char *argv[]) {
     
 	// signals
 
-	sc_signal<sc_uint<input_length> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero, LO_LSB, HI_LSB;
-	sc_signal<sc_uint<product_length> > product;
+	sc_signal<sc_uint<NN_HALF_DIGIT_BITS> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero, LO_LSB, HI_LSB;
+	sc_signal<sc_uint<NN_DIGIT_BITS> > product;
 	
 	sc_signal<sc_logic> HI_mux_sel, LO_mux_sel, HI_mux2_sel, carry_mux_sel; 
     sc_signal<sc_logic> HI_reg_load, LO_reg_load, rshift_load;

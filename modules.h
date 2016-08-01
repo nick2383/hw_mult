@@ -6,23 +6,24 @@
 #ifndef MODULES_H
 #define MODULES_H
 #include "systemc.h"
+#include "digit.h"
 
 
 // #define input_length 4
 // #define product_length 8
 
-#define input_length 16
-#define product_length 32
+// #define input_length 16
+// #define product_length 32
 
 //*************************
 // add - adds number A and b
 //*************************
 SC_MODULE(add) {
     // ports
-    sc_in< sc_uint<input_length> > A_IN; 
-    sc_in< sc_uint<input_length> > B_IN;	
-    sc_out< sc_uint<input_length> > Z_OUT;
-    sc_out< sc_uint<input_length> > carry_OUT;
+    sc_in< sc_uint<NN_HALF_DIGIT_BITS> > A_IN; 
+    sc_in< sc_uint<NN_HALF_DIGIT_BITS> > B_IN;	
+    sc_out< sc_uint<NN_HALF_DIGIT_BITS> > Z_OUT;
+    sc_out< sc_uint<NN_HALF_DIGIT_BITS> > carry_OUT;
 
     void add_process();
     
@@ -38,9 +39,9 @@ SC_MODULE(add) {
 SC_MODULE(mux2) {
     // ports
     sc_in<sc_logic> sel;
-    sc_in< sc_uint<input_length> > A_IN; 
-    sc_in< sc_uint<input_length> > B_IN;	
-    sc_out< sc_uint<input_length> > Z_OUT;
+    sc_in< sc_uint<NN_HALF_DIGIT_BITS> > A_IN; 
+    sc_in< sc_uint<NN_HALF_DIGIT_BITS> > B_IN;	
+    sc_out< sc_uint<NN_HALF_DIGIT_BITS> > Z_OUT;
 
     void mux2_process();
     
@@ -57,9 +58,9 @@ SC_MODULE(reg) {
     // ports
     sc_in<sc_logic> reset, load;
     sc_in_clk clock;
-    sc_in< sc_uint<input_length> > A_IN; 
-    sc_out< sc_uint<input_length> > Z_OUT;	
-    sc_out< sc_uint<input_length> > LSB;
+    sc_in< sc_uint<NN_HALF_DIGIT_BITS> > A_IN; 
+    sc_out< sc_uint<NN_HALF_DIGIT_BITS> > Z_OUT;	
+    sc_out< sc_uint<NN_HALF_DIGIT_BITS> > LSB;
 
     void reg_process();
     
@@ -73,13 +74,13 @@ SC_MODULE(reg) {
 //*************************
 SC_MODULE(rshift) {
     // ports
-    sc_in< sc_uint<input_length> > A_IN;
-    sc_in< sc_uint<input_length> > B_IN;
-    sc_in< sc_uint<input_length> > carry_IN;
+    sc_in< sc_uint<NN_HALF_DIGIT_BITS> > A_IN;
+    sc_in< sc_uint<NN_HALF_DIGIT_BITS> > B_IN;
+    sc_in< sc_uint<NN_HALF_DIGIT_BITS> > carry_IN;
     sc_in<sc_logic> reset, load;
     sc_in_clk clock;
-    sc_out< sc_uint<product_length> > Z_OUT; 
-    sc_out< sc_uint<product_length> > product_OUT; 
+    sc_out< sc_uint<NN_DIGIT_BITS> > Z_OUT; 
+    sc_out< sc_uint<NN_DIGIT_BITS> > product_OUT; 
 
     void rshift_process();
     
@@ -98,9 +99,9 @@ SC_MODULE(rshift) {
 //*************************
 SC_MODULE(splitter) {
     // ports
-    sc_in< sc_uint<product_length> > A_IN;
-    sc_out< sc_uint<input_length> > LO_OUT;
-    sc_out< sc_uint<input_length> > HI_OUT;
+    sc_in< sc_uint<NN_DIGIT_BITS> > A_IN;
+    sc_out< sc_uint<NN_HALF_DIGIT_BITS> > LO_OUT;
+    sc_out< sc_uint<NN_HALF_DIGIT_BITS> > HI_OUT;
 
     void splitter_process();
     

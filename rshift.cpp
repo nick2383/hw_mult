@@ -14,12 +14,12 @@ void rshift::rshift_process() {
         }
         else if (load.read() == SC_LOGIC_1) {
             // temporary variables
-            sc_uint<product_length> temp_output = 0;
-            temp_output = (A_IN.read() << input_length) + B_IN.read();
+            sc_uint<NN_DIGIT_BITS> temp_output = 0;
+            temp_output = (A_IN.read() << NN_HALF_DIGIT_BITS) + B_IN.read();
             temp_output = temp_output >> 1;
 
             if(carry_IN.read() == 1){
-                temp_output = (1<<31) + temp_output;
+                temp_output = (1<<(NN_DIGIT_BITS-1)) + temp_output;
                 //temp_output = (1<<7) + temp_output;
             }
             

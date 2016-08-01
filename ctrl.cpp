@@ -28,7 +28,7 @@ void ctrl::state_transition() {
         break;
 	
     case S1_COUNT:
-        if(counter >= 17){
+        if(counter >= (NN_HALF_DIGIT_BITS + 1)){
           next_state.write(S6_FINISH);
         }
         // if(counter == 32){

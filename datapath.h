@@ -15,19 +15,19 @@ SC_MODULE(datapath) {
     
     sc_in<sc_logic> HI_mux_sel, LO_mux_sel, HI_mux2_sel, carry_mux_sel; 
     sc_in<sc_logic> HI_reg_load, LO_reg_load, rshift_load;
-	sc_out< sc_uint<input_length> > LO_LSB, HI_LSB;
+	sc_out< sc_uint<NN_HALF_DIGIT_BITS> > LO_LSB, HI_LSB;
     
-    sc_in< sc_uint<input_length> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero;
-    sc_out< sc_uint<product_length> > product;
+    sc_in< sc_uint<NN_HALF_DIGIT_BITS> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero;
+    sc_out< sc_uint<NN_DIGIT_BITS> > product;
 	
     sc_in<sc_logic> reset;
     sc_in_clk clock;
 
     // signals
-    sc_signal< sc_uint<input_length> > HI_mux_out, LO_mux_out;
-    sc_signal< sc_uint<input_length> > HI_reg_out, LO_reg_out;
-    sc_signal< sc_uint<input_length> > adder_out, adder_carry_out, HI_mux2_out, carry_mux_out, HI_out, LO_out;
-    sc_signal< sc_uint<product_length> > rshift_out;
+    sc_signal< sc_uint<NN_HALF_DIGIT_BITS> > HI_mux_out, LO_mux_out;
+    sc_signal< sc_uint<NN_HALF_DIGIT_BITS> > HI_reg_out, LO_reg_out;
+    sc_signal< sc_uint<NN_HALF_DIGIT_BITS> > adder_out, adder_carry_out, HI_mux2_out, carry_mux_out, HI_out, LO_out;
+    sc_signal< sc_uint<NN_DIGIT_BITS> > rshift_out;
         
     // instances   
     mux2 HI_mux, LO_mux, HI_mux2, carry_out_mux; 
