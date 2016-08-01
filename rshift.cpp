@@ -19,5 +19,6 @@ void rshift::rshift_process() {
         
         // write result to output port
         Z_OUT.write(temp_output);
+        product_OUT.write(temp_output);
     }
 }

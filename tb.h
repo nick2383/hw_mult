@@ -18,16 +18,12 @@ SC_MODULE(stim) {
 
     	reset.write(SC_LOGIC_1);
     	reset.write(SC_LOGIC_0);
-    	wait();
-    	//HI_mux_zero.write(0);
-    	//LO_mux_zero.write(0);
-    	wait();
     	multiplier.write(15);
     	multiplicand.write(10);
     	wait();
-		cout << "\n Time = " << sc_time_stamp() << 
-			"  multiplier = " << multiplier.read() << 
-			"  multiplicand = " << multiplicand.read() << endl;
+		// cout << "\n Time = " << sc_time_stamp() << 
+		// 	"  multiplier = " << multiplier.read() << 
+		// 	"  multiplicand = " << multiplicand.read() << endl;
     	
     	/*
     	A_IN.write(2147549183);

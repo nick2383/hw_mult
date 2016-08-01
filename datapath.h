@@ -88,6 +88,8 @@ SC_MODULE(datapath) {
         rshifter.load(rshift_load);
         rshifter.carry_IN(carry_mux_out);
         rshifter.Z_OUT(rshift_out);
+        rshifter.product_OUT(product);
+
 
         splitty.A_IN(rshift_out);
         splitty.LO_OUT(LO_out);

@@ -8,10 +8,13 @@
 
 void mux2::mux2_process() {
     
-    if (sel.read() == SC_LOGIC_1) 
+    if (sel.read() == SC_LOGIC_1) {
         Z_OUT.write(A_IN.read());
-    else 
+    }
+    else {
         Z_OUT.write(B_IN.read());
+    }
 
-    //cout << "\n mux output" << Z_OUT.read();
+    //cout << "\n mux A_IN = " << A_IN.read();
+    //cout << "\n mux B_IN = " << B_IN.read();
 }

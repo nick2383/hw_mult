@@ -75,6 +75,7 @@ SC_MODULE(rshift) {
     sc_in< sc_uint<input_length> > carry_IN;
     sc_in<sc_logic> load;
     sc_out< sc_uint<product_length> > Z_OUT; 
+    sc_out< sc_uint<product_length> > product_OUT; 
 
     void rshift_process();
     

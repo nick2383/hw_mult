@@ -63,13 +63,13 @@ void ctrl::state_transition() {
 
 
 void ctrl::state_output() {
-  // default: all outputs at zero
-  HI_mux_sel.write(SC_LOGIC_1); 
-  LO_mux_sel.write(SC_LOGIC_1);
-  HI_mux2_sel.write(SC_LOGIC_0); 
-  carry_mux_sel.write(SC_LOGIC_0);
-  HI_reg_load.write(SC_LOGIC_0); 
-  LO_reg_load.write(SC_LOGIC_0);
+  //default: all outputs at zero
+  // HI_mux_sel.write(SC_LOGIC_1); 
+  // LO_mux_sel.write(SC_LOGIC_1);
+  // HI_mux2_sel.write(SC_LOGIC_0); 
+  // carry_mux_sel.write(SC_LOGIC_0);
+  // HI_reg_load.write(SC_LOGIC_0); 
+  // LO_reg_load.write(SC_LOGIC_0);
   rshift_load.write(SC_LOGIC_1);
   
   switch (state.read()) {
@@ -88,13 +88,12 @@ void ctrl::state_output() {
         break;
 
     case S2_CHECK:
-        cout << "\n S2_CHECK counter = " << counter;
+        LO_mux_sel.write(SC_LOGIC_1);
+        HI_mux_sel.write(SC_LOGIC_1);
         break;
 
     case S3_DO_NOTHING:
         cout << " \n S3_DO_NOTHING";
-        HI_reg_load.write(SC_LOGIC_1);
-        LO_reg_load.write(SC_LOGIC_1);
 	      carry_mux_sel.write(SC_LOGIC_0);
 	      HI_mux2_sel.write(SC_LOGIC_0);
         //rshift_load.write(SC_LOGIC_1);
@@ -103,10 +102,10 @@ void ctrl::state_output() {
 
     case S3_ADD:
         cout << " \n S3_ADD";
-        HI_reg_load.write(SC_LOGIC_1);
-        LO_reg_load.write(SC_LOGIC_1);
+        //HI_reg_load.write(SC_LOGIC_1);
+        //LO_reg_load.write(SC_LOGIC_1);
 	      carry_mux_sel.write(SC_LOGIC_1);
-        HI_mux2_sel.write(SC_LOGIC_1);	    
+        HI_mux2_sel.write(SC_LOGIC_1);    
         break;
 
     case S4_FINISH:

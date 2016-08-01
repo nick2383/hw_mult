@@ -132,44 +132,67 @@ int sc_main(int argc, char *argv[]) {
  //    MON.B_OUT(B_OUT);
  //    MON.clock(clock);
 	
-	/*
+	
 	//traces       
 	sc_trace_file *tf = sc_create_vcd_trace_file("gcd_trace");
 	tf->set_time_unit(1, SC_NS);
-	sc_trace(tf, X_IN, "X_IN");
-	sc_trace(tf, Y_IN, "Y_IN");
+	//sc_trace(tf, X_IN, "X_IN");
+	//sc_trace(tf, Y_IN, "Y_IN");
 	sc_trace(tf, reset, "reset");
 	sc_trace(tf, clock, "clock");
-	sc_trace(tf, Z_OUT, "Z_OUT"); 
+	//sc_trace(tf, Z_OUT, "Z_OUT"); 
 
-	sc_trace(tf, GCD.xmux_sel, "xmux_sel");
-	sc_trace(tf, GCD.ymux_sel, "ymux_sel");
-	sc_trace(tf, GCD.amux_sel, "amux_sel");
-	sc_trace(tf, GCD.bmux_sel, "bmux_sel");
-	sc_trace(tf, GCD.xreg_load, "xreg_load");
-	sc_trace(tf, GCD.yreg_load, "yreg_load");
-	sc_trace(tf, GCD.zreg_load, "zreg_load");
+	// sc_trace(tf, DP.LO_mux.A_IN, "LO_mux.A_IN");
+	// sc_trace(tf, DP.LO_mux.B_IN, "LO_mux.B_IN");
+	// sc_trace(tf, DP.LO_mux.Z_OUT, "LO_mux.Z_OUT");
+	// sc_trace(tf, DP.LO_mux.sel, "LO_mux.sel");
 
-	sc_trace(tf, GCD.EQ, "EQ");
-	sc_trace(tf, GCD.GT, "GT");
-	sc_trace(tf, GCD.LT, "LT");
+	sc_trace(tf, DP.LO_reg.A_IN, "LO_reg.A_IN");
+	sc_trace(tf, DP.LO_reg.load, "LO_reg.load");
+	sc_trace(tf, DP.LO_reg.Z_OUT, "LO_reg.Z_OUT");
+	sc_trace(tf, DP.LO_reg.LSB, "LO_reg.LSB");
 
-	sc_trace(tf, GCD.DP.x_n, "x_n");
-	sc_trace(tf, GCD.DP.y_n, "y_n");
-	sc_trace(tf, GCD.DP.x, "x");
-	sc_trace(tf, GCD.DP.y, "y");
-	sc_trace(tf, GCD.DP.sub_A, "sub_A");
-	sc_trace(tf, GCD.DP.sub_B, "sub_B");
-	sc_trace(tf, GCD.DP.sub_out, "sub_out");
+	// sc_trace(tf, DP.HI_mux.A_IN, "HI_mux.A_IN");
+	// sc_trace(tf, DP.HI_mux.B_IN, "HI_mux.B_IN");
+	// sc_trace(tf, DP.HI_mux.Z_OUT, "HI_mux.Z_OUT");
+	// sc_trace(tf, DP.HI_mux.sel, "HI_mux.sel");
+
+	sc_trace(tf, DP.rshifter.A_IN, "rshifter.A_IN");
+	sc_trace(tf, DP.rshifter.B_IN, "rshifter.B_IN");
+	sc_trace(tf, DP.rshifter.carry_IN, "rshifter.carry_IN");
+	sc_trace(tf, DP.rshifter.Z_OUT, "rshifter.Z_OUT");
+	sc_trace(tf, DP.rshifter.product_OUT, "rshifter.product_OUT");
+	sc_trace(tf, DP.rshifter.load, "rshifter.load");
+
+
+
+	// sc_trace(tf, GCD.ymux_sel, "ymux_sel");
+	// sc_trace(tf, GCD.amux_sel, "amux_sel");
+	// sc_trace(tf, GCD.bmux_sel, "bmux_sel");
+	// sc_trace(tf, GCD.xreg_load, "xreg_load");
+	// sc_trace(tf, GCD.yreg_load, "yreg_load");
+	// sc_trace(tf, GCD.zreg_load, "zreg_load");
+
+	// sc_trace(tf, GCD.EQ, "EQ");
+	// sc_trace(tf, GCD.GT, "GT");
+	// sc_trace(tf, GCD.LT, "LT");
+
+	// sc_trace(tf, GCD.DP.x_n, "x_n");
+	// sc_trace(tf, GCD.DP.y_n, "y_n");
+	// sc_trace(tf, GCD.DP.x, "x");
+	// sc_trace(tf, GCD.DP.y, "y");
+	// sc_trace(tf, GCD.DP.sub_A, "sub_A");
+	// sc_trace(tf, GCD.DP.sub_B, "sub_B");
+	// sc_trace(tf, GCD.DP.sub_out, "sub_out");
     
-	sc_trace(tf, GCD.CL.state, "state");
-	sc_trace(tf, GCD.CL.next_state, "next_state");
-	*/
+	// sc_trace(tf, GCD.CL.state, "state");
+	// sc_trace(tf, GCD.CL.next_state, "next_state");
+	
       
     
-	sc_start(200, SC_NS);
+	sc_start(2000, SC_NS);
 
-	//sc_close_vcd_trace_file(tf);
+	sc_close_vcd_trace_file(tf);
 		
 	return(0);
 }

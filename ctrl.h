@@ -37,8 +37,8 @@ SC_MODULE(ctrl) {
     void state_output();
     void state_reg();
    
-    SC_CTOR(ctrl) { 
-    	SC_METHOD(state_transition);
+    SC_CTOR(ctrl) {
+        SC_METHOD(state_transition);
     	   sensitive << state;
     	SC_METHOD(state_output);
     	   sensitive << state;	
