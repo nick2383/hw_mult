@@ -19,6 +19,7 @@ int sc_main(int argc, char *argv[]) {
 	
 	sc_signal<sc_logic> HI_mux_sel, LO_mux_sel, HI_mux2_sel, carry_mux_sel; 
     sc_signal<sc_logic> HI_reg_load, LO_reg_load, rshift_load;
+    sc_signal<sc_logic> DONE;
 
 	sc_signal<sc_logic> reset;
 
@@ -66,6 +67,7 @@ int sc_main(int argc, char *argv[]) {
 	CTRL.HI_reg_load(HI_reg_load);
 	CTRL.LO_reg_load(LO_reg_load);
 	CTRL.rshift_load(rshift_load);
+	CTRL.DONE(DONE);
 
 	STIM.reset(reset);
 	STIM.clock(clock);
@@ -76,6 +78,7 @@ int sc_main(int argc, char *argv[]) {
 
 	MON.clock(clock);
 	MON.product(product);
+	MON.DONE(DONE);
 
 
 
@@ -196,7 +199,7 @@ int sc_main(int argc, char *argv[]) {
 	
       
     
-	sc_start(200, SC_NS);
+	sc_start(300, SC_NS);
 
 	sc_close_vcd_trace_file(tf);
 		

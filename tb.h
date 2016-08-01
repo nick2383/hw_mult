@@ -20,8 +20,8 @@ SC_MODULE(stim) {
 
     	reset.write(SC_LOGIC_1);
     	reset.write(SC_LOGIC_0);
-    	multiplier.write(13);
-    	multiplicand.write(12);
+    	multiplier.write(7);
+    	multiplicand.write(11);
     	wait();
 		// cout << "\n Time = " << sc_time_stamp() << 
 		// 	"  multiplier = " << multiplier.read() << 
@@ -101,15 +101,19 @@ SC_MODULE(stim) {
 SC_MODULE(mon) {
     sc_in< sc_uint<product_length> > product;
     //sc_in< sc_uint<multiplier_length> > HI_OUT;
-    //sc_in<sc_logic> carry_OUT;
+    sc_in<sc_logic> DONE;
     sc_in_clk clock;
     
     void mon_process(){
         
         while (1) {
 	  		wait();
-	  		cout << " \n * Time = " << sc_time_stamp() << 
-		  		"  product = " << product.read() << endl;
+	  		if(DONE.read() == SC_LOGIC_1){
+	  			cout <<"\n Product = " << product <<"\n";
+	  			break;
+	  		}
+	  		// cout << " \n * Time = " << sc_time_stamp() << 
+		  	// 	"  product = " << product.read() << endl;
     	}
 
 

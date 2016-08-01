@@ -83,6 +83,8 @@ SC_MODULE(datapath) {
         adder.carry_OUT(adder_carry_out);
         adder.Z_OUT(adder_out);
 	
+        rshifter.reset(reset);
+        rshifter.clock(clock);
         rshifter.A_IN(HI_mux2_out);
         rshifter.B_IN(LO_reg_out);
         rshifter.load(rshift_load);

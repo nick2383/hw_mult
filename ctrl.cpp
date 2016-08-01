@@ -28,8 +28,8 @@ void ctrl::state_transition() {
         break;
 	
     case S1_COUNT:
-        if(counter == 5){
-          next_state.write(S5_FINISH);
+        if(counter >= 5){
+          next_state.write(S6_FINISH);
         }
         // if(counter == 32){
         //   next_state.write(S4_FINISH);
@@ -57,14 +57,14 @@ void ctrl::state_transition() {
         break;
 
     case S4_SHIFT:
+        next_state.write(S5_WAIT);
+        break;
+
+    case S5_WAIT:
         next_state.write(S1_COUNT);
         break;
 
-    // case S5_WAIT:
-    //     next_state.write(S1_COUNT);
-    //     break;
-
-    case S5_FINISH:
+    case S6_FINISH:
         break;
 	
     default:
@@ -93,15 +93,16 @@ void ctrl::state_output() {
         LO_reg_load.write(SC_LOGIC_1);
         carry_mux_sel.write(SC_LOGIC_0);
         HI_mux2_sel.write(SC_LOGIC_0);
-        rshift_load.write(SC_LOGIC_0);    
+        rshift_load.write(SC_LOGIC_0); 
+        DONE.write(SC_LOGIC_0);   
         break;
 
     case S1_COUNT:
         cout << "\n S1_COUNT counter = " << counter;
         counter = counter + 1;
-        HI_reg_load.write(SC_LOGIC_1);
-        LO_reg_load.write(SC_LOGIC_1);
-        // rshift_load.write(SC_LOGIC_1); 
+        // HI_reg_load.write(SC_LOGIC_1);
+        // LO_reg_load.write(SC_LOGIC_1);
+        // rshift_load.write(SC_LOGIC_0); 
         break;
 
     case S2_CHECK:
@@ -139,16 +140,17 @@ void ctrl::state_output() {
         rshift_load.write(SC_LOGIC_1);
         break;
 
-    // case S5_WAIT:
-    //     // load registers with new values
-    //     LO_reg_load.write(SC_LOGIC_1);
-    //     HI_reg_load.write(SC_LOGIC_1);
-    //     cout << " \n S5_WAIT";
-    //     break;
+    case S5_WAIT:
+        // load registers with new values
+        LO_reg_load.write(SC_LOGIC_1);
+        HI_reg_load.write(SC_LOGIC_1);
+        rshift_load.write(SC_LOGIC_0);
+        cout << " \n S5_WAIT";
+        break;
 
-    case S5_FINISH:
-        cout << " \n S5_FINISH";
-        cout << "done..";
+    case S6_FINISH:
+        cout << " \n S6_FINISH";
+        DONE.write(SC_LOGIC_1);
         break;	
 	
     default:
