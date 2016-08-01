@@ -56,7 +56,7 @@ SC_MODULE(reg) {
     sc_in_clk clock;
     sc_in< sc_uint<input_length> > A_IN; 
     sc_out< sc_uint<input_length> > Z_OUT;	
-    sc_out<sc_logic> LSB;
+    sc_out< sc_uint<input_length> > LSB;
 
     void reg_process();
     
@@ -72,7 +72,7 @@ SC_MODULE(rshift) {
     // ports
     sc_in< sc_uint<input_length> > A_IN;
     sc_in< sc_uint<input_length> > B_IN;
-    sc_in<sc_logic> carry_IN;
+    sc_in< sc_uint<input_length> > carry_IN;
     sc_in<sc_logic> load;
     sc_out< sc_uint<product_length> > Z_OUT; 
 
@@ -80,7 +80,7 @@ SC_MODULE(rshift) {
     
     SC_CTOR(rshift) {
         SC_METHOD(rshift_process);
-        sensitive << load;
+        sensitive << load << A_IN << B_IN;
     }
 };
 

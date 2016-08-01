@@ -12,4 +12,6 @@ void mux2::mux2_process() {
         Z_OUT.write(A_IN.read());
     else 
         Z_OUT.write(B_IN.read());
+
+    //cout << "\n mux output" << Z_OUT.read();
 }

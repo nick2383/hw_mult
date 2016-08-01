@@ -8,17 +8,20 @@
 #define CONTROL_H
 #include "systemc.h"
 
-enum ctrl_state {S0_BEGIN, S1_CHECK, S2_ADD, S2_DO_NOTHING, S3_FINISH};
+#define input_length 16
+#define product_length 32
+
+enum ctrl_state {S0_BEGIN, S1_COUNT, S2_CHECK, S3_DO_NOTHING, S3_ADD, S4_FINISH};
     
 //*************************
 // controller module
 //*************************
 SC_MODULE(ctrl) {
     // declare ports
-    sc_out<sc_logic> HI_mux_sel, LO_mux_sel, HI_mux2_sel, carry_mux_sel, rshift_load;
-    sc_out<sc_logic> HI_reg_load, LO_reg_load;
+    sc_out<sc_logic> HI_mux_sel, LO_mux_sel, HI_mux2_sel, carry_mux_sel;
+    sc_out<sc_logic> HI_reg_load, LO_reg_load, rshift_load;
 
-    sc_in<sc_logic> LO_LSB;
+    sc_in<sc_uint<input_length> > LO_LSB;
 
     sc_in<sc_logic> reset;
     sc_in_clk clock;

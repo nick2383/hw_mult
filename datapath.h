@@ -15,9 +15,9 @@ SC_MODULE(datapath) {
     
     sc_in<sc_logic> HI_mux_sel, LO_mux_sel, HI_mux2_sel, carry_mux_sel; 
     sc_in<sc_logic> HI_reg_load, LO_reg_load, rshift_load;
-	sc_out<sc_logic> LO_LSB;
+	sc_out< sc_uint<input_length> > LO_LSB, HI_LSB;
     
-    sc_in< sc_uint<input_length> > muliplier, multiplicand;
+    sc_in< sc_uint<input_length> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero;
     sc_out< sc_uint<product_length> > product;
 	
     sc_in<sc_logic> reset;
@@ -38,13 +38,14 @@ SC_MODULE(datapath) {
     
     SC_CTOR(datapath): 
 	HI_mux("HI_mux"), LO_mux("LO_mux"), HI_mux2("HI_mux2"), carry_out_mux("carry_out_mux"),
+    HI_reg("HI_reg"), LO_reg("LO_reg"),
 	adder("adder"), rshifter("rshifter"),
 	splitty("splitty") { 
 	   
        // Interconnections
 	                  
         HI_mux.A_IN(HI_reg_out);
-        HI_mux.B_IN(0);
+        HI_mux.B_IN(HI_mux_zero);
         HI_mux.Z_OUT(HI_mux_out);
         HI_mux.sel(HI_mux_sel);
             
@@ -59,7 +60,7 @@ SC_MODULE(datapath) {
         HI_mux2.sel(HI_mux2_sel);
             
         carry_out_mux.A_IN(adder_carry_out);
-        carry_out_mux.B_IN(0);
+        carry_out_mux.B_IN(carry_mux_zero);
         carry_out_mux.Z_OUT(carry_mux_out);
         carry_out_mux.sel(carry_mux_sel);
         
@@ -68,6 +69,7 @@ SC_MODULE(datapath) {
         HI_reg.load(HI_reg_load);
         HI_reg.A_IN(HI_out);
         HI_reg.Z_OUT(HI_reg_out);
+        HI_reg.LSB(HI_LSB);
             
         LO_reg.clock(clock);
         LO_reg.reset(reset);

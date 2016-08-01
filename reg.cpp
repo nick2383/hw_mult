@@ -14,6 +14,7 @@ void reg::reg_process() {
         }
         else if (load.read() == SC_LOGIC_1) {
         	Z_OUT.write(A_IN.read());
+        	cout << "\nA_IN= " << A_IN.read() << "LSB = " << (A_IN.read() & 0x0001);
         	LSB.write(A_IN.read() & 0x0001);
         }
 

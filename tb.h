@@ -6,22 +6,28 @@
 
 #include "systemc.h"
 
+#define input_length 16
+#define product_length 32
+
 SC_MODULE(stim) {
-    sc_out< sc_uint<input_length> > multiplier, multiplicand;
+    sc_out< sc_uint<input_length> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero;
     sc_out<sc_logic> reset;
     sc_in_clk clock;
     
     void stim_process(){
 
     	reset.write(SC_LOGIC_1);
-    	wait();
     	reset.write(SC_LOGIC_0);
+    	wait();
+    	//HI_mux_zero.write(0);
+    	//LO_mux_zero.write(0);
     	wait();
     	multiplier.write(15);
     	multiplicand.write(10);
-		wait();
-		cout << "Time = " << sc_time_stamp() << 
-			"  A_IN = " << A_IN.read() << endl;
+    	wait();
+		cout << "\n Time = " << sc_time_stamp() << 
+			"  multiplier = " << multiplier.read() << 
+			"  multiplicand = " << multiplicand.read() << endl;
     	
     	/*
     	A_IN.write(2147549183);
@@ -84,7 +90,7 @@ SC_MODULE(stim) {
 		wait();
 		*/
 		 
-	    sc_stop();
+	    //sc_stop();
         
     }
         
@@ -95,7 +101,7 @@ SC_MODULE(stim) {
 
 
 SC_MODULE(mon) {
-    sc_in< sc_uint<multiplier_length> > product;
+    sc_in< sc_uint<product_length> > product;
     //sc_in< sc_uint<multiplier_length> > HI_OUT;
     //sc_in<sc_logic> carry_OUT;
     sc_in_clk clock;
@@ -104,8 +110,8 @@ SC_MODULE(mon) {
         
         while (1) {
 	  		wait();
-	  		cout << " * Time = " << sc_time_stamp() << 
-		  		"  product = " << prouct.read() << endl;
+	  		cout << " \n * Time = " << sc_time_stamp() << 
+		  		"  product = " << product.read() << endl;
     	}
 
 

@@ -6,15 +6,20 @@
 #include "systemc.h"
 #include "modules.h"
 #include "tb.h"
+#include "datapath.h"
+#include "ctrl.h"
 
 
 int sc_main(int argc, char *argv[]) {
     
 	// signals
 
-	sc_signal<sc_uint<product_length> > multiplier;
-	sc_signal<sc_uint<input_length> > multiplicand;
-	sc_signal<sc_uint<input_length> > product;
+	sc_signal<sc_uint<input_length> > multiplier, multiplicand, HI_mux_zero, carry_mux_zero, LO_LSB, HI_LSB;
+	sc_signal<sc_uint<product_length> > product;
+	
+	sc_signal<sc_logic> HI_mux_sel, LO_mux_sel, HI_mux2_sel, carry_mux_sel; 
+    sc_signal<sc_logic> HI_reg_load, LO_reg_load, rshift_load;
+
 	sc_signal<sc_logic> reset;
 
 	//sc_signal<sc_uint<input_length> > HI_OUT;
@@ -29,25 +34,47 @@ int sc_main(int argc, char *argv[]) {
 
 	// instancess
 	datapath DP("DP"); 
-	crl CTRL("CTRL");
+	ctrl CTRL("CTRL");
 	stim STIM("STIM");
 	mon MON("MON");
 
 	//interconnections
-	DP.rest(reset);
-	DP.clk(clock);
+	DP.reset(reset);
+	DP.clock(clock);
 	DP.multiplier(multiplier);
 	DP.multiplicand(multiplicand);
+	DP.HI_mux_zero(HI_mux_zero);
+	DP.carry_mux_zero(carry_mux_zero);
 	DP.product(product);
+	DP.LO_LSB(LO_LSB);
+	DP.HI_LSB(HI_LSB);
+	DP.HI_mux_sel(HI_mux_sel);
+	DP.LO_mux_sel(LO_mux_sel);
+	DP.HI_mux2_sel(HI_mux2_sel);
+	DP.carry_mux_sel(carry_mux_sel);
+	DP.HI_reg_load(HI_reg_load);
+	DP.LO_reg_load(LO_reg_load);
+	DP.rshift_load(rshift_load);
 
 	CTRL.reset(reset);
-	CTRL.clk(clock);
+	CTRL.clock(clock);
+	CTRL.LO_LSB(LO_LSB);
+	CTRL.HI_mux_sel(HI_mux_sel);
+	CTRL.LO_mux_sel(LO_mux_sel);
+	CTRL.HI_mux2_sel(HI_mux2_sel);
+	CTRL.carry_mux_sel(carry_mux_sel);
+	CTRL.HI_reg_load(HI_reg_load);
+	CTRL.LO_reg_load(LO_reg_load);
+	CTRL.rshift_load(rshift_load);
 
 	STIM.reset(reset);
+	STIM.clock(clock);
+	STIM.HI_mux_zero(HI_mux_zero);
+	STIM.carry_mux_zero(carry_mux_zero);
 	STIM.multiplier(multiplier);
 	STIM.multiplicand(multiplicand);
 
-	MON.clk(clock);
+	MON.clock(clock);
 	MON.product(product);
 
 
@@ -140,7 +167,7 @@ int sc_main(int argc, char *argv[]) {
 	*/
       
     
-	sc_start();
+	sc_start(200, SC_NS);
 
 	//sc_close_vcd_trace_file(tf);
 		
